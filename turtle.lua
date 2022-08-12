@@ -20,3 +20,13 @@ function pickUpItemsByName(side, itemId)
     print('No items with an id of ' .. itemId)
     return
 end
+
+function dropOffAllItems()
+    for i=1, 16, 1 do
+        turtle.select(i)
+        turtle.drop()
+    end
+    turtle.select(1)
+end
+
+--Main
