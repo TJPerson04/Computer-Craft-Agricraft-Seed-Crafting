@@ -3,6 +3,7 @@
 
 --Constants
 cropSticksId = 'AgriCraft:cropsItem'
+diamondHoeId = 'minecraft:diamond_hoe'
 
 --Functions
 function pickUpItemsByName(side, itemId) 
@@ -35,19 +36,23 @@ function selectItem(itemId)
         if (turtle.getItemDetail(i) ~= nil) then
             if (turtle.getItemDetail(i).name == itemId) then
                 turtle.select(i)
-                return
+                return true
             end
         end
     end
+    return false
 end
 
 function useItemInTablet(itemId, isLeftClick)
-    selectItem(itemId)
-    turtle.drop()
-    peripheral.call('front', 'setLeftClick', isLeftClick)
-    peripheral.call('front', 'trigger')
-    os.sleep(1)
-    turtle.suck()
+    if (selectItem(itemId)) then
+        turtle.drop()
+        peripheral.call('front', 'setLeftClick', isLeftClick)
+        peripheral.call('front', 'trigger')
+        os.sleep(1)
+        turtle.suck()  
+    end
 end
+
+
 
 --Main
