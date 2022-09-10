@@ -1,4 +1,5 @@
 --Probably gonna have all the code in a turtle
+--Make sure all dynamism tablets are in Redstone Control
 
 --Constants
 cropSticksId = 'AgriCraft:cropsItem'
@@ -27,6 +28,26 @@ function dropOffAllItems()
         turtle.drop()
     end
     turtle.select(1)
+end
+
+function selectItem(itemId)
+    for i=1, 16, 1 do
+        if (turtle.getItemDetail(i) ~= nil) then
+            if (turtle.getItemDetail(i).name == itemId) then
+                turtle.select(i)
+                return
+            end
+        end
+    end
+end
+
+function useItemInTablet(itemId, isLeftClick)
+    selectItem(itemId)
+    turtle.drop()
+    peripheral.call('front', 'setLeftClick', isLeftClick)
+    peripheral.call('front', 'trigger')
+    os.sleep(1)
+    turtle.suck()
 end
 
 --Main
